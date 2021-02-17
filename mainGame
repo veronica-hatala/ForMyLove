@@ -1,40 +1,40 @@
 #data setup
 
-rooms = {
-    'bedroom': {
-        'name': 'Bedroom',
-        'east': 'yoka',
-        'west': 'maharu',
-        'north': 'lameera',
-        'south': 'riamgular',
-        'contents': ['blanket'],
-        'text': 'The room is cold and barren aside from your stone bed with a meager quilt.'
-    },
-    'yoka': {
-        'name': 'Yoka',
-        'west': 'bedroom',
-        'contents': ['herbs', 'peonies'],
-        'text': 'A statue of Yoka features prominently.'
-    },
-    'maharu': {
-        'name': 'Maharu',
-        'east': 'bedroom',
-        'contents': ['twigs', 'shells'],
-        'text': 'A statue of Maharu is at the center of the room.'
-    },
-    'lameera': {
-        'name': 'Lameera',
-        'south': 'bedroom',
-        'contents': ['jewels', 'crown'],
-        'text': 'The statue of Lameera peers into your soul. She wears a crown and her altar is covered in jewels'
-    },
-    'riamgular': {
-        'name': 'Riamgular',
-        'north': 'bedroom',
-        'contents': ['bones'],
-        'text': 'The statue of Riamgular looks ready to strike.'
-    }
-}
+rooms = dict(bedroom={
+    'name': 'Bedroom',
+    'east': 'yoka',
+    'west': 'maharu',
+    'north': 'lameera',
+    'south': 'riamgular',
+    'contents': ['blanket'],
+    'text': 'The room is cold and barren aside from your stone bed with a meager quilt.',
+    'visited': False,
+}, yoka={
+    'name': 'Yoka Shrine',
+    'west': 'bedroom',
+    'contents': ['herbs', 'lilies'],
+    'text': 'A statue of Yoka features prominently. Scattered herbs are left on her altar.',
+    'visited': False,
+}, maharu={
+    'name': 'Maharu Shrine',
+    'east': 'bedroom',
+    'contents': ['twigs', 'shells'],
+    'text': 'A statue of Maharu is at the center of the room. He hold calligraphy brushes and paper. Twigs and '
+            'shells are left as offerings on his altar. ',
+    'visited': False,
+}, lameera={
+    'name': 'Lameera Shrine',
+    'south': 'bedroom',
+    'contents': ['jewels', 'crown'],
+    'text': 'The statue of Lameera peers into your soul. She wears a crown and her altar is covered in jewels',
+    'visited': False,
+}, riamgular={
+    'name': 'Riamgular Shrine',
+    'north': 'bedroom',
+    'contents': ['bones', 'sword'],
+    'text': 'The statue of Riamgular looks ready to strike.',
+    'visited': False,
+})
 directions = ['north', 'south', 'east', 'west']
 current_room = rooms['bedroom']
 carrying = []
@@ -60,7 +60,7 @@ def yokaRitual():
     checkCompletion()
 
 def maharuRitual():
-    print("Upon placing the peonies on the altar, the eyes of Maharu glow.")
+    print("Upon placing the lilies on the altar, the eyes of Maharu glow.")
     global maharuAwakened
     maharuAwakened = True
     print("CHECK:" + str(maharuAwakened))
@@ -82,7 +82,7 @@ def riamgularRitual():
 while gameplay is True:
         print()
 
-        print("CHECKS: " + str(lameeraAwakened) + str(riamgularAwakened) + str(yokaAwakened) + str(maharuAwakened))
+        #  print("CHECKS: " + str(lameeraAwakened) + str(riamgularAwakened) + str(yokaAwakened) + str(maharuAwakened))
         print('You are in {}.'.format(current_room['name']))
         print(current_room['text'])
 
@@ -98,6 +98,9 @@ while gameplay is True:
         #check bag
         elif command.lower() in ('i', 'inventory', 'contents', 'bag'):
             print(carrying)
+        #check contents of room
+        elif command.lower() in ('objects', 'o', 'room contents'):
+            print(current_room['contents'])
         #gather objects
         elif command.lower().split()[0] == 'get':
             item = command.lower().split()[1]
