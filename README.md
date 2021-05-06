@@ -1,2 +1,2 @@
-# ForMyLove
-A small game in python
+# Small Python Projects
+Some small Python Projects
